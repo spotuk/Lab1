@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .navbar-right{
+            float: right !important;
+            margin-right : 15px;
+            margin-left: 15px;
+        }
+      
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse" role="navigation">
+        <img class="navbar-left" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfucdF7m3o3tLCDO3_96nrMY-Q8hcLIYdwbUrf2Njh2F24wISB" width="50" height="50" />
+        <a class="navbar-brand" href="/Autos/List">AutoStore</a>
+        @if (string.IsNullOrWhiteSpace(Context.User.Identity.Name))
+        {
+            <button id="register" class="btn btn-default btn-primary " type="button" onclick="location.href='@Url.Action("Register", "Account")'">Register </button>
+            <button id="login" class="btn btn-default " type="button" onclick="location.href='@Url.Action("Login", "Account")'">Login </button>
+           
+        }
+        else
+        if (Context.User.Identity.Name.ToUpper() != "ADMIN")
+        {
+            @Html.Action("OutBtn", "Account")
+
+            @Html.Action("LoginStatus", "Account")
+        }
+        else
+        {
+            @Html.Action("OutBtn", "Account")
+
+            @Html.Action("LoginStatus", "Account")
+            <button id="adminPanel" class="btn btn-default btn-primary " type="button" onclick="location.href='@Url.Action("Index", "Admin")'">Panel</button>
+
+        }
+
+        @Html.Action("Summary", "Cart")
+    </div>
+
+    <div class="row panel">
+        <div id="types" class="col-xs-3">
+            @Html.Action("Menu", "Nav")
+        </div>
+           
+        <div>
+            <h1>GIT</h1>
+            <h2>Hello, world!</h2>
+            <h3>This is my site</h3>
+        </div>
+
+        <div class="col-xs-8">
+            @RenderBody()
+        </div>
+    </div>
+
+
+    @*<div class="my-container">
+        <hr />
+        <div class="clearfix"></div>
+        <footer>
+            <p class="first-paragraph">&copy; @DateTime.Now.Year Victoria Bondar CS-31<br><a href="#top" class="right">back to top</p>
+        </footer>
+    </div>*@
+
+
+</body>
+</html>

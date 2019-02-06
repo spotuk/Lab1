@@ -1,0 +1,33 @@
+﻿@using WebUI.Models
+@model AutoListViewModel
+
+@{
+    ViewBag.Title = "Auto";
+}
+
+@*@foreach (var auto in Model.Autos)
+{
+    @Html.Partial("_AutoSummary", auto)
+}
+
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, type = Model.CurrentType }))
+</div>*@
+
+@using (Html.BeginForm())  //для поиска
+    {
+        <div class="btn-group pull-right">
+            @Html.TextBox("SearchString")
+            <input type="submit" class="btn btn-success" value="Поиск" />
+        </div>
+    }
+
+    @foreach (var auto in @Model.Autos)
+    {
+        @Html.Partial("_AutoSummary", auto)
+    }
+
+    <div class="btn-group pull-right">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+            new { page = x, type = Model.CurrentType }))
+    </div>
